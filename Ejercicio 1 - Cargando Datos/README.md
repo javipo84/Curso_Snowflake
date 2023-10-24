@@ -7,18 +7,14 @@ Eso si, para variar, no han sido muy claros en que datos vais a recibir ni tampo
 
 Tu primera tarea ya está aquí.
 
-Cargamos primero events, addresses, order_items, orders, users
+Lo primero será crear las tablas donde cargar los datos [CREATE TABLES].
 
-Después promos
-(Hay que cambiar file format)
+Ahora deberás aprovisionar las tablas de orders, events, addresses, order_items y users a partir de los ficheros que hay en el stage @bronze_stage.
 
-Después products
-(Hay que usar FIELD_OPTIONALLY_ENCLOSED_BY) 
+Cuando crees que ya está todo, te das cuenta que todavía faltan por cargar las tablas de products y la tabla de promos... Por suerte, tienes los ficheros en tu local [FICHEROS].
 
-Hay que ver cuales van a estar en local y cuales en el external stage
+Tendrás que ingeniártelas para cargar crear un stage en tu base de datos, cargar los ficheros y posteriormente volcar sus datos en las tablas correspondientes.
 
-Links a create table y demás
-
-Código para crear las tablas.
+Y finalmente... lo conseguiste. Ya puedes respirar !!!
 
 
