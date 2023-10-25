@@ -3,11 +3,19 @@
 
 Bueno, ahora sí que sí, ha llegado el momento. Desde hace dos horas, una llamada del equipo de desarrollo ha provocado que tu equipo de datos parezca un avispero. Os acaban de comunicar que por fin, los datos de usuarios, productos, pedidos, etc... están disponibles para ser consumidos.
 
-Eso si, para variar, no han sido muy claros en que datos vais a recibir ni tampoco su estructura. Os han dejado unos ficheros de muestra con datos, los cuales negocio está ansioso por poder visualizar y testear a través de la herramienta de BI.
+Eso si, para variar, no han sido muy claros en que datos vais a recibir ni tampoco su estructura. Os han dejado unos ficheros de muestra con datos para cada una de estas tablas, los cuales negocio está ansioso por poder visualizar y testear a través de la herramienta de BI antes de formalizar o entregar unos requisitos más elaborados. Por lo tanto lo que necesitamos es cargar estos datos en las tablas de Snowflake.
 
-Tu primera tarea ya está aquí.
+## Tu equipo te quiere (y nosotr@s también)
 
-Lo primero será crear las tablas donde cargar los datos:
+Tu equipo te proporciona información sobre la estructura de los datos y también los scripts de creación de las tablas. Además te detalla un poco más el proceso que deberías hacer. Aprende, porque en el futuro darán por supuesto que sabes crear un pipeline de datos desde cero y las diferentes etapas por las que debe de ir fluyendo el dato. 
+
+### Diagrama de datos
+
+![image](https://github.com/javipo84/Curso_Snowflake/assets/51535157/4b37b27f-0ed0-46d9-8e09-949aef83b4d8)
+
+### Tablas
+
+Aquí tienes los scripts para la ejecución de las tablas en Snowflake. 
 
 ```
 -- Create Addresses --
@@ -83,6 +91,14 @@ CREATE TABLE USERS(
 	EMAIL VARCHAR(256)
 );
 ```
+
+## Proceso
+
+### 1 - Creación de las tablas
+
+Debes crearlas en el esquema **bronze** de tu base de datos. Ya deberías tenerlo creado, pero si no, YA DEBERÍAS DE SABER COMO HACERLO. Si no, sabes que siempre tienes la documentación [Snowflake](https://docs.snowflake.com/) de tu lado. 
+
+### 2 - Carga de datos
 
 Ahora deberás aprovisionar las tablas de orders, events, addresses, order_items y users a partir de los ficheros que hay en el stage @bronze_stage.
 
