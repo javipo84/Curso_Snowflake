@@ -107,8 +107,11 @@ Cuando crees que ya está todo, te das cuenta que todavía faltan por cargar las
 https://github.com/javipo84/Curso_Snowflake/blob/main/Ejercicio%201%20-%20Cargando%20Datos/products.csv
 https://github.com/javipo84/Curso_Snowflake/blob/main/Ejercicio%201%20-%20Cargando%20Datos/promos.csv
 
-Tendrás que ingeniártelas para cargar crear un stage en tu base de datos, cargar los ficheros y posteriormente volcar sus datos en las tablas correspondientes.
+Tendrás que ingeniártelas para cargar crear un stage en el esquema bronze de tu base de datos, cargar los ficheros y posteriormente volcar sus datos en las tablas correspondientes.
 
-Y finalmente... lo conseguiste. Ya puedes respirar !!!
+Y finalmente... lo conseguiste. Ya puedes respirar y descansar !!!
+
+![image](https://github.com/javipo84/Curso_Snowflake/assets/51535157/dce2a075-160f-4fd0-92fc-02511fd7cf17)
+
 
 
