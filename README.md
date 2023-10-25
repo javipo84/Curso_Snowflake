@@ -8,5 +8,8 @@ También lo puedes interpretar como "No nos fiamos de tí, con lo cual vamos a g
 
 Así que nada, disfruta del Onboarding....
 
+![image](https://github.com/javipo84/Curso_Snowflake/assets/51535157/48cffc6e-44a8-4c71-ba39-4a7c7b962383)
+
+
 
 
