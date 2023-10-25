@@ -104,7 +104,7 @@ Ahora cargar los datos de en las tablas de orders, events, addresses, order_item
 
 **Importante**: Recuerda, la documentación de Snowflake es TU AMIGA.
 
-### 3 - Cargao de datos (local - snowsql)
+### 3 - Carga de datos (local - snowsql)
 
 Cuando crees que ya está todo, te das cuenta que todavía faltan por cargar las tablas de products y la tabla de promos... Avisas a tu equipo, y te pasan los ficheros directamente para que los subas tú mismo, esta vez no serán ellos los que previamente los subirán al stage. 
 
@@ -113,7 +113,7 @@ https://github.com/javipo84/Curso_Snowflake/blob/main/Ejercicio%201%20-%20Cargan
 
 Tendrás que ingeniártelas para cargar crear un stage en el esquema bronze de tu base de datos, cargar los ficheros y posteriormente volcar sus datos en las tablas correspondientes.
 
-##Respira....
+## 4 - Respira....
 
 Y finalmente... lo conseguiste. Ya puedes respirar y descansar !!!
 
