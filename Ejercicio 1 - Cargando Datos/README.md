@@ -98,9 +98,13 @@ CREATE TABLE USERS(
 
 Debes crearlas en el esquema **bronze** de tu base de datos. Ya deberías tenerlo creado, pero si no, YA DEBERÍAS DE SABER COMO HACERLO. Si no, sabes que siempre tienes la documentación [Snowflake](https://docs.snowflake.com/) de tu lado. 
 
-### 2 - Carga de datos
+### 2 - Carga de datos (Internal Stage)
 
-Ahora deberás aprovisionar las tablas de orders, events, addresses, order_items y users a partir de los ficheros que hay en el stage @bronze_stage.
+Ahora cargar los datos de en las tablas de orders, events, addresses, order_items y users. Para ello, tu equipo ya te ha dejado los ficheros en un internal stage llamdo @bronze_stage (base de datos **CURSO_SNOWFLAKE_DE_2023** y esquema **Bronze**).
+
+**Importante**: Recuerda, la documentación de Snowflake es TU AMIGA.
+
+### 3 - Cargao de datos (local - snowsql)
 
 Cuando crees que ya está todo, te das cuenta que todavía faltan por cargar las tablas de products y la tabla de promos... Por suerte, tienes los ficheros en tu local.
 
@@ -108,6 +112,8 @@ https://github.com/javipo84/Curso_Snowflake/blob/main/Ejercicio%201%20-%20Cargan
 https://github.com/javipo84/Curso_Snowflake/blob/main/Ejercicio%201%20-%20Cargando%20Datos/promos.csv
 
 Tendrás que ingeniártelas para cargar crear un stage en el esquema bronze de tu base de datos, cargar los ficheros y posteriormente volcar sus datos en las tablas correspondientes.
+
+##Respira....
 
 Y finalmente... lo conseguiste. Ya puedes respirar y descansar !!!
 
