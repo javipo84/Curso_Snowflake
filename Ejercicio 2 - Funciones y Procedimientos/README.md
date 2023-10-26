@@ -34,7 +34,7 @@ Ahora mismo todos tenemos en nuestro BRONZE nuestras tablas con el dato RAW, ose
 En primer lugar tenemos que crear el esquema SILVER y las tablas de SILVER, os dejo aqui los CREATES que vamos a usar.
 
 ```
-S
+
 -- SILVER
 
 --  ORDERS
