@@ -4,7 +4,7 @@ Mientras tu ingestabas los datos de prueba para que negocio pudiera tener una pr
 
 Ahora, necesitamos trabajar y pulir el dato para sacar datos relevantes a partir de él, además intentaremos que esta transformación se lance de forma sencilla, este será tu nuevo cometido.
 
-
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 ### PASO 1: CLONING
 
@@ -12,7 +12,7 @@ Para asegurarnos de que todos partimos de la misma situación vamos a clonar el 
 
 Pista : Siempre que tengáis un objeto ya creado y lo querais recrear sobreescribiendo el antiguo podéis usar la claúsula OR REPLACE en el comando CREATE.
 
-
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 ### PASO 2: TIME TRAVEL WAR
 
@@ -25,7 +25,7 @@ create or replace table PEPE CLONE PEPE AT(TIMESTAMP => '2023-10-26 10:18:07.000
 También se puede tirar la select solamente para consultar algo
 SELECT * FROM PEPE AT(TIMESTAMP => '2023-10-26 10:18:07.000');
 
-
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 ### PASO 3: CAPA SILVER
 
@@ -33,7 +33,7 @@ Ahora mismo todos tenemos en nuestro BRONZE nuestras tablas con el dato RAW, ose
 
 En primer lugar tenemos que crear el esquema SILVER y las tablas de SILVER, os dejo aqui los CREATES que vamos a usar.
 
-´´´
+```
 -- SILVER
 
 --  ORDERS
@@ -109,14 +109,14 @@ CREATE OR REPLACE TABLE MY_DB.MY_SILVER_SCHEMA.PROMOS (
     DISCOUNT FLOAT,
     STATUS VARCHAR(50)
 );
-´´´
+```
 
 Tenemos que ejecutar todos esos creates, una vez hecho vamos a echarle un ojo más de cerca a las diferencias entre estás tablas y las de BRONZE. 
 
 En primer lugar podemos ver que ya no todos los tipos de dato son VARCHAR(256), ahora tenemos los tipos de datos ajustados al dato que nos viene, además hemos añadido algunos campos, HIT_NUMBER en EVENTS y DELIVERY_TIME_HOURS en ORDERS. Para rellenar estas tablas tendremos que tener en cuenta estas diferencias.
 
 El primer paso es preparar un comando INSERT INTO que cargará el dato desde BRONZE a SILVER aplicando las transformaciones necesarias, os dejo aqui el ejemplo de PROMOS para que veáis que no tiene mucha ciencia.
-´´´
+```
 -- PROMOS
 INSERT INTO MY_DB.MY_SILVER_SCHEMA.PROMOS 
 SELECT 
@@ -124,7 +124,7 @@ SELECT
     DISCOUNT::float,
     STATUS::varchar(50)
 FROM my_db.my_bronze_schema.promos;
-´´´
+```
 Tened cuidado de sustituir las bases de datos y esquemas por los vuestros. 
 
 Además, podéis ver que en este caso la única transformación que tenemos que hacer es cambiar el tipo de dato (CASTEOS), snowflake tiene una manera sencilla de aplicarlos que es con ::tipo_de_dato, esto habrá que hacerlo para todas las tablas. Os recomendamos empezar por las que no son EVENTS ni ORDERS ya que para estás habrá que añadir un campo calculado que tiene un poco más de dificultad.
@@ -137,7 +137,7 @@ Vamos a por ORDERS, el nuevo campo se llama DELIVERY_TIME_HOURS y os dicen desde
 Con EVENTS ocurre lo siguiente, a un data science flipado se le ha ocurrido la brillante idea de hacer un análisis de las sesiones en la web y nos ha pedido que le añadamos un campo que numere los distintos eventos dentro de una sesión. Osea que si dentro de una sesión lo primero que hace un usuario es visitar un producto, que ese registro lleve HIT_NUMBER = 1 , luego visita otro HIT_NUMBER = 2, luego va al carrito y revisa HIT_NUMBER = 3 y luego compra HIT_NUMBER = 4.
 Esto se hace con una window function. Os dejamos intentarlo y pasaremos la solución por mattermost si se complica.
 
-
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 ### PASO 4: CAPA GOLD
 
