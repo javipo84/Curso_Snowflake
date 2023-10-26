@@ -137,7 +137,11 @@ Tablas "complicadas":
 Vamos a por ORDERS, el nuevo campo se llama DELIVERY_TIME_HOURS y os dicen desde negocio que este campo es la diferencia en horas desde que se crea un pedido hasta que se entrega. Tendreís que buscar una función de Snowflake que consiga hacer esto, tenéis el timestamp de creación en CREATED_AT y el de entrega en DELIVERED_AT.
 
 Con EVENTS ocurre lo siguiente, a un data science flipado se le ha ocurrido la brillante idea de hacer un análisis de las sesiones en la web y nos ha pedido que le añadamos un campo que numere los distintos eventos dentro de una sesión. Osea que si dentro de una sesión lo primero que hace un usuario es visitar un producto, que ese registro lleve HIT_NUMBER = 1 , luego visita otro HIT_NUMBER = 2, luego va al carrito y revisa HIT_NUMBER = 3 y luego compra HIT_NUMBER = 4.
-Esto se hace con una window function. Os dejamos intentarlo y pasaremos la solución por mattermost si se complica.
+Esto se hace con una window function. Queremos que para todos los registros que tienen el mismo SESSION_ID se base en el timestamp CREATED_AT para añardir un campo HIT_NUMBER ordenado. 
+
+Funciona con varias window functions pero yo por ejemplo he usado esta https://docs.snowflake.com/en/sql-reference/functions/row_number.
+
+Os dejamos intentarlo y pasaremos la solución por mattermost si se complica.
 
 -------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
