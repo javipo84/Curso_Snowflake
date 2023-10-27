@@ -8,7 +8,16 @@ El Team Lead de tu equipo ha validado tus procedimientos de transformación y te
 
 Para empezar vamos a realizar una serie de tareas previas a la creación de nuestro Stream y nuestras Tasks.
 
-Primero crearemos en nuestra Base de Datos y esquema GOLD la siguiente tabla que hace un agregado del número de pedidos y su status por fecha, para ello ejecutamos:
+En primer lugar y para asegurarnos que todos partimos de la misma base, vamos a clonar en nuestro esquema particular:
+```
+USE DATABASE MY_DB;
+    
+CREATE OR REPLACE SCHEMA BRONZE CLONE CURSO_SNOWFLAKE_DE_2023.BRONZE;
+CREATE OR REPLACE SCHEMA SILVER CLONE CURSO_SNOWFLAKE_DE_2023.SILVER;
+CREATE OR REPLACE SCHEMA GOLD CLONE CURSO_SNOWFLAKE_DE_2023.GOLD;
+```
+
+Ahora crearemos en nuestra Base de Datos y esquema GOLD la siguiente tabla que hace un agregado del número de pedidos y su status por fecha, para ello ejecutamos:
 
 Recuerda reemplazar siempre MY_DB por el nombre de tu Base de Datos:
 ```
@@ -58,7 +67,7 @@ Hasta aquí los pasos previos, ahora vamos con lo nuevo!
 
 ### PASO 1: STREAM
 
-En primer lugar vamos a crear el stream (tipo standard) sobre la tabla Orders_hist, pero ojo!, lo vamos a crear sobre la tabla ORDERS_HIST que está en la base de datos común! (CURSO_SNOWFLAKE_DE_2023.BRONZE.ORDERS_HIST), no la que tienes en tu propia Base de Datos.
+En primer lugar vamos a crear el stream (tipo APPEND_ONLY) sobre la tabla ORDERS_HIST, pero ojo!, lo vamos a crear sobre la tabla ORDERS_HIST que está en la base de datos común! (CURSO_SNOWFLAKE_DE_2023.BRONZE.ORDERS_HIST), no la que tienes en tu propia Base de Datos.
 
 Lo haremos así para simular la entrada de nuevos pedidos, es decir, una vez esté todo configurado insertaremos nosotros a modo de prueba registros y si todo está bien configurado, el pipeline que estais a punto de construir funcionará a la perfección!.
 
@@ -89,23 +98,39 @@ https://docs.snowflake.com/en/sql-reference/sql/create-task
 
 ¿Y que va a ejecutar esta task?, buena pregunta...pues vamos a actualizar nuestra tabla de Orders de Silver. Importante que sea la de vuestra Base de Datos y Esquema!
 
-Para ello os proponemos que completéis la consulta Merge que haría esta operación:
+Para ello os proponemos que completéis la consulta Merge que haría esta operación, completad tanto el update si machea, como el insert si no machea:
 
-Por supuesto, vemos las dudas, pero antes seguro que este blog te lo aclara:
-https://blogs.perficient.com/2022/07/06/how-to-implement-incremental-loading-in-snowflake-using-stream-and-merge/
+Documentación del Merge:
 
-A partir de aquí y con las columnas metadata$action del stream, construye el resto del merge para que actualice/inserte la tabla SILVER.ORDERS
-
+https://docs.snowflake.com/en/sql-reference/sql/merge
 
 ```
-MERGE INTO SILVER.ORDERS t
+--MERGE
+    MERGE INTO SILVER.ORDERS t
     USING 
     (
         SELECT *
         FROM
-            RUBEN_CURSO_23_DB.BRONZE.ORDERS_STREAM 
+            MY_DB.BRONZE.ORDERS_STREAM 
     ) s ON t.ORDER_ID = s.ORDER_ID
-    [continua la consulta]
+            WHEN MATCHED THEN UPDATE ...
+```
+
+Para que no perdáis tiempo con los casteos que hicísteis ayer en la tabla de Orders...os los dejamos por aquí:
+```
+ORDER_ID::varchar(50),
+SHIPPING_SERVICE::varchar(20),
+replace(SHIPPING_COST,',','.')::decimal,
+ADDRESS_ID::varchar(50),
+CREATED_AT::timestamp_ntz,
+IFNULL(promo_id,'N/A'),
+ESTIMATED_DELIVERY_AT::timestamp_ntz,
+(replace(ORDER_COST,',','.'))::decimal,
+USER_ID::varchar(50),(replace(s.ORDER_TOTAL,',','.'))::decimal,
+DELIVERED_AT::timestamp_ntz,
+TRACKING_ID::varchar(50),
+STATUS::varchar(20),
+TIMESTAMPDIFF(HOUR,created_at,delivered_at)
 ```
 
 -------------------------------------------------------------------------------------------------------------------------------------------------------------------
