@@ -156,6 +156,16 @@ Una vez creadas las tareas, no olvides activarlas, para ello:
 ALTER TASK IF EXISTS MY_SCHEMA.ROOT_TASK RESUME;
 ALTER TASK IF EXISTS MY_SCHEMA.TASK_HIJA RESUME;
 ```
+
+Para comprobar si la tarea raíz (ROOT_TASK) está comprobando cada minuto, que es el tiempo que le configuramos, si el stream tiene datos o no podemos lanzar una consulta en el task history y comprobarlo:
+
+```
+--CHECK TASK HISTORY
+SELECT * FROM TABLE(INFORMATION_SCHEMA.TASK_HISTORY()) WHERE NAME = 'ROOT_TASK';
+```
+
+El campo STATE aparecerá como SCHEDUELD y tras cada revisión, como todavía no hemos insertado datos en el ORDERS_HIST, pasará a estado SKIPPED hasta que insertemos datos y el debería ser SUCCEEDED (ojalá) o FAILED (si algo hay mal).
+
 -------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 ### PASO 5: COMPROBACIÓN
