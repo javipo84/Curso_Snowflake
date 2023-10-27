@@ -65,9 +65,9 @@ Lo haremos así para simular la entrada de nuevos pedidos, es decir, una vez est
 Recordad ejecutad siempre desde vuestra Base de Datos y crearemos el stream con el nombre ORDERS_STREAM.
 
 Será un Stream sobre la tabla:
-
+```
 CURSO_SNOWFLAKE_DE_2023.BRONZE.ORDERS_HIST;
-
+```
 
 Como siempre, la documentación es nuestra amiga:
 
@@ -89,7 +89,14 @@ https://docs.snowflake.com/en/sql-reference/sql/create-task
 
 ¿Y que va a ejecutar esta task?, buena pregunta...pues vamos a actualizar nuestra tabla de Orders de Silver. Importante que sea la de vuestra Base de Datos y Esquema!
 
-Para ello y como no somos tan malos, os facilitamos la consulta Merge que haría esta operación:
+Para ello os proponemos que completéis la consulta Merge que haría esta operación:
+
+Por supuesto, vemos las dudas, pero antes seguro que este blog te lo aclara:
+https://blogs.perficient.com/2022/07/06/how-to-implement-incremental-loading-in-snowflake-using-stream-and-merge/
+
+A partir de aquí y con las columnas metadata$action del stream, construye el resto del merge para que actualice/inserte la tabla SILVER.ORDERS
+
+
 ```
 MERGE INTO SILVER.ORDERS t
     USING 
@@ -98,13 +105,8 @@ MERGE INTO SILVER.ORDERS t
         FROM
             RUBEN_CURSO_23_DB.BRONZE.ORDERS_STREAM 
     ) s ON t.ORDER_ID = s.ORDER_ID
+    [continua la consulta]
 ```
-
-A partir de aquí y con las columnas metadata$action del stream, construye el resto del merge para que actualice/inserte la tabla SILVER.ORDERS
-
-Por supuesto, vemos las dudas, pero antes seguro que este blog te lo aclara:
-https://blogs.perficient.com/2022/07/06/how-to-implement-incremental-loading-in-snowflake-using-stream-and-merge/
-
 
 -------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
