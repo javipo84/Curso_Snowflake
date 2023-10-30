@@ -164,11 +164,11 @@ Por lo tanto, ya tienes las consultas para pasar los datos desde esta base de da
 
 Por último, finalmente negocio tiene claro el dato que le gustaría consultar en un cuadro de mando, y para el que tú deberías de preparar dos agrupados que ya precalculen esta información. Cada uno de ellos también serán una tabla dinámica. En este caso, el lag deberemos configurarlo como DOWNSTREAM, de esta forma estas tablas dinámicas se actualizarán cuando lo hagan las de Silver. 
 
-#### 1. Total de Shipping_Cost por Código Postal
+#### 1. Suma de Shipping_Cost agrupada por Código Postal
 
 Deberás crear una tabla dinámica que realice este cálculo.
 
-#### 2. Total de Order_Cost por Producto dónde el estado de la orden sea "shipped"
+#### 2. Suma de Order_Cost por Nombre de Producto dónde el estado de la orden sea "shipped"
 
 Igualmente, deberás crear una tabla dinámica para este cálculo.
 
