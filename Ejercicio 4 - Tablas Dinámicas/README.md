@@ -43,7 +43,7 @@ BEGIN
         TRACKING_ID::varchar(50),
         STATUS::varchar(20),
         TIMESTAMPDIFF(HOUR,created_at,delivered_at)
-    FROM MYDB.bronze.orders;
+    FROM curso_snowflake_de_2023.bronze.orders_hist;
     
     -- EVENTS
     INSERT INTO MYDB.SILVER.EVENTS 
