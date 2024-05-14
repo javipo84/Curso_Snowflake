@@ -17,9 +17,12 @@ Tu equipo te proporciona información sobre la estructura de los datos y tambié
 
 Para empezar, creamos nuestra base de datos y un esquema:
 
+```
 create or replace database dev_curso_brz_db_alumno_**tu numero**;
-
+```
+```
 create or replace schema bronze;
+```
 
 Creamos las siguientes tablas dentro de la bbdd y esquema anteriores: 
 
