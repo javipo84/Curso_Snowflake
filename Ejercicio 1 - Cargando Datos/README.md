@@ -13,9 +13,14 @@ Tu equipo te proporciona información sobre la estructura de los datos y tambié
 
 ![image](https://github.com/javipo84/Curso_Snowflake/assets/51535157/4b37b27f-0ed0-46d9-8e09-949aef83b4d8)
 
-### Tablas
+### BBDD y tablas
 
-Aquí tienes los scripts para la ejecución de las tablas en Snowflake. 
+Para empezar, creamos nuestra base de datos y un esquema:
+
+create or replace database dev_curso_brz_db_alumno**tu numero**;
+create or replace schema bronze;
+
+Creamos las siguientes tablas dentro de la bbdd y esquema anteriores: 
 
 ```
 -- Create Addresses --
@@ -96,13 +101,13 @@ CREATE TABLE USERS(
 
 ### 1 - Creación de las tablas
 
-Debes crearlas en el esquema **bronze** de tu base de datos. Ya deberías tenerlo creado, pero si no, YA DEBERÍAS DE SABER COMO HACERLO. Si no, sabes que siempre tienes la documentación [Snowflake](https://docs.snowflake.com/) de tu lado. 
+Debes crearlas en el esquema **bronze** de tu base de datos. Recuerda que la documentación [Snowflake](https://docs.snowflake.com/) está de tu lado. 
 
 ### 2 - Carga de datos (Internal Stage)
 
-Ahora cargar los datos de en las tablas de orders, events, addresses, order_items y users. Para ello, tu equipo ya te ha dejado los ficheros en un internal stage llamado @bronze_stage (base de datos **CURSO_SNOWFLAKE_DE_2023** y esquema **Bronze**).
+Ahora cargar los datos de en las tablas de orders, events, addresses, order_items y users. Para ello, tu equipo ya te ha dejado los ficheros CSV (separados por ;) en un internal stage llamado @bronze_stage (base de datos **CURSO_DATA_ENGINEERING_2024** y esquema **Bronze**).
 
-**Importante**: Recuerda, la documentación de Snowflake es TU AMIGA.
+**Importante**: Recuerda de nuevo, la documentación de Snowflake es TU AMIGA.
 
 ### 3 - Carga de datos (local - snowsql)
 
