@@ -25,7 +25,7 @@ CREATE OR REPLACE TABLE Addresses_clonado CLONE Addresses;
 
 Al hacer el clonado podemos observar que ambas tablas son idénticas:
 
-![Untitled](https://prod-files-secure.s3.us-west-2.amazonaws.com/7e0dcde1-5a03-4ce7-a56f-1497c72c368f/180da063-36ef-472f-8a97-d39fb28a4712/Untitled.png)
+![image](https://github.com/javipo84/Curso_Snowflake/assets/166698078/f0ba487f-ab9d-496a-8ac6-dd69f3093dfe)
 
 ## b) Clonado de esquema
 
