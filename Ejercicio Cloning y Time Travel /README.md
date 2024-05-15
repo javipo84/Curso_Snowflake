@@ -123,7 +123,7 @@ CREATE or replace TABLE Addresses_clonado AS SELECT * FROM Addresses_clonado BEF
 ![Untitled](https://prod-files-secure.s3.us-west-2.amazonaws.com/7e0dcde1-5a03-4ce7-a56f-1497c72c368f/74a43f95-f830-47b4-b48b-72a8ac822c9d/Untitled.png)
 
 ```sql
-select * from brands_recuperada;
+select * from Addresses_clonado;
 ```
 
 ![Untitled](https://prod-files-secure.s3.us-west-2.amazonaws.com/7e0dcde1-5a03-4ce7-a56f-1497c72c368f/284e3927-fe18-4f39-b531-5b7f55b694c3/Untitled.png)
