@@ -5,9 +5,7 @@ En el siguiente ejercicio aprenderemos a:
 - Clonar una tabla y un esquema.
 - Volver al estado anterior de una tabla gracias al *time travel* de Snowflake.
 
-En esta práctica seguiremos utilizando los datos que ingestamos en este apartado:
-
-[Cargando Datos](https://www.notion.so/Cargando-Datos-2e9dfac104ed47a68e39e23708a31ec2?pvs=21)
+En esta práctica seguiremos utilizando los datos que ingestamos en el apartado de Ejercicio 1- Cargando Datos.
 
 **Partes de la práctica:**
 
@@ -17,12 +15,12 @@ En esta práctica seguiremos utilizando los datos que ingestamos en este apartad
 
 ## a) Clonado de tabla
 
-Por ejemplo, si queremos clonar la tabla *Brands*  del esquema *Production* en una tabla con nombre, pongamos, *brands_clonado*, debemos ejecutar el siguiente comando:
+Por ejemplo, si queremos clonar la tabla *Addresses*  del esquema *BRONZE* en una tabla con nombre, pongamos, *Addresses_clonado*, debemos ejecutar el siguiente comando:
 
 ```sql
-USE DATABASE DEV_DEMO_BRZ_DB_<USER>;
-USE SCHEMA PRODUCTION;
-CREATE OR REPLACE TABLE brands_clonado CLONE brands; 
+USE DATABASE DEV_CURSO_BRZ_DB_ALUMNO_<TU NUMERO>;
+USE SCHEMA BRONZE;
+CREATE OR REPLACE TABLE Addresses_clonado CLONE Addresses; 
 ```
 
 Al hacer el clonado podemos observar que ambas tablas son idénticas:
@@ -34,12 +32,12 @@ Al hacer el clonado podemos observar que ambas tablas son idénticas:
 De la misma forma, podemos clonar un esquema. Por ejemplo, podemos clonar el esquema *Production.*
 
 ```sql
-CREATE OR REPLACE SCHEMA production_clonado CLONE PRODUCTION;
+CREATE OR REPLACE SCHEMA bronze_clonado CLONE BRONZE;
 ```
 
 Usando este comando podemos observar que el esquema nuevo tiene la misma estructura que el original:
 
-![Untitled](https://prod-files-secure.s3.us-west-2.amazonaws.com/7e0dcde1-5a03-4ce7-a56f-1497c72c368f/2a15debb-065a-4475-b434-ef1274cba4a5/Untitled.png)
+![image](https://github.com/javipo84/Curso_Snowflake/assets/166698078/81f08796-6d4f-455e-b513-8c77a67be205)
 
 # 2. Time travel
 
