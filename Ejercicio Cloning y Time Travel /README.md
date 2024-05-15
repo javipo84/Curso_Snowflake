@@ -103,4 +103,27 @@ select * from brands at (TIMESTAMP => TIMESTAMPADD(minute, -5, CURRENT_TIMESTAMP
 
 También podemos utilizar el time travel con el id de la consulta. 
 
-En ese caso:
+En ese caso: 
+
+```sql
+-- Truncamos los valores para limpiar la tabla pero dejar 
+-- la misma estructura que la tabla de brands
+TRUNCATE TABLE Addresses_clonado;
+```
+
+![Untitled](https://prod-files-secure.s3.us-west-2.amazonaws.com/7e0dcde1-5a03-4ce7-a56f-1497c72c368f/e60c8841-dfed-40da-8ea0-23d7d33c314a/Untitled.png)
+
+![Untitled](https://prod-files-secure.s3.us-west-2.amazonaws.com/7e0dcde1-5a03-4ce7-a56f-1497c72c368f/f7e9a189-20a8-4cb7-bcb3-0525fde1fcaa/Untitled.png)
+
+```sql
+-- Utilizamos el id de la query para volver al estado anterior a esta consulta
+CREATE or replace TABLE Addresses_clonado AS SELECT * FROM Addresses_clonado BEFORE (STATEMENT => '01b38ced-0103-a99d-0000-185509e4503e');
+```
+
+![Untitled](https://prod-files-secure.s3.us-west-2.amazonaws.com/7e0dcde1-5a03-4ce7-a56f-1497c72c368f/74a43f95-f830-47b4-b48b-72a8ac822c9d/Untitled.png)
+
+```sql
+select * from brands_recuperada;
+```
+
+![Untitled](https://prod-files-secure.s3.us-west-2.amazonaws.com/7e0dcde1-5a03-4ce7-a56f-1497c72c368f/284e3927-fe18-4f39-b531-5b7f55b694c3/Untitled.png)
