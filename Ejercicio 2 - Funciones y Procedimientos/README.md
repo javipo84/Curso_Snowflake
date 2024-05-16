@@ -14,7 +14,7 @@ Pista : Siempre que tengáis un objeto ya creado y lo querais recrear sobreescri
 
 -------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
-### PASO 3: CAPA SILVER
+### PASO 2: CAPA SILVER
 
 Ahora mismo todos tenemos en nuestro BRONZE nuestras tablas con el dato RAW, osea sin tratar. El siguiente paso será pasar al schema SILVER y aprovecharemos este paso para hacer algunos cambios y añadir algún campo que enriquezca nuestros datos.
 
@@ -132,7 +132,7 @@ Os dejamos intentarlo y pasaremos la solución por mattermost si se complica.
 
 -------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
-### PASO 4: PROCEDURES EN CAPA SILVER
+### PASO 3: PROCEDURES EN CAPA SILVER
 
 Una vez tengamos todos los inserts listos vamos a meterlos en procedures para luego poder ejecutar la transformación de manera más sencilla, vamos a crear un procedure en el que llamaremos a todos los inserts, os dejo uno de ejemplo con un solo insert metido y solo tendréis que añadir los demás. Si os fijáis lo primero que se hace es truncar la tabla y luego insertar los datos. Esto lo hacemos para poder lanzarlo todas las veces que queramos sin que se nos acumulen datos repetidos, en la práctica normalmente las tablas serán históricas y cada día se insertaran días nuevos por lo que el truncate sobraría.
 ```
@@ -160,7 +160,7 @@ END;
 ```
 PD: Como hemos creado un procedure antes que trunca todas las tablas de un esquema podeís aprovechar y llamarlo cada vez que queráis limpiar todo el esquema e incluir solo los insert en este, lo dejo a vuestra elección, levantad la mano si me estoy explicando como un libro cerrado.
 
-### PASO 5: CAPA GOLD
+### PASO 4: CAPA GOLD
 
 Ya tenemos nuestra SILVER que da gusto verla, nuestros campos están con los formatos adecuados y hemos añadido un par de campos que aportan una información muy interesante. Ahora vamos a movernos a GOLD, en esta capa vamos a montar dos casos de uso. Estos casos de uso son dos ejemplos sencillos de como podríamos agregar los datos que nos dan para obtener información relevante para el negocio.
 
@@ -215,7 +215,7 @@ SHIPPING_COST_PERCENTAGE es un ratio que nos indica cuanto ha supuesto los gasto
 Finalmente MAIN_SHIPPING_SERVICE corresponde a el servicio de paquetería más usado en cada estado.
 
 
-### PASO 6: PROCEDURES EN CAPA GOLD
+### PASO 5: PROCEDURES EN CAPA GOLD
 
 Felicidades ya has terminado realmente, tu INSERT INTO en gold va fino y funciona de lujo y ya solo tienes que crear un procedure con la misma forma que el de silver que contenga el insert into para cada caso de uso. Puedes copiar y pegar el de SILVER y sustituir las queries que tira por el insert into de GOLD correspondiente. Con esto la transformación está completamente desarrollada y preparada para lanzarse cómodamente. Te has ganado una cerveza compañer@.
 
