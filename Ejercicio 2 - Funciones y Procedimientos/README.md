@@ -158,7 +158,6 @@ BEGIN
     RETURN 'Insertado con éxito máquina';
 END;
 ```
-PD: Como hemos creado un procedure antes que trunca todas las tablas de un esquema podeís aprovechar y llamarlo cada vez que queráis limpiar todo el esquema e incluir solo los insert en este, lo dejo a vuestra elección, levantad la mano si me estoy explicando como un libro cerrado.
 
 ### PASO 4: CAPA GOLD
 
