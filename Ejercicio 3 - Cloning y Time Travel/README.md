@@ -37,7 +37,7 @@ Vamos a insertar un nuevo registro en la tabla *addresses* y visualizamos la tab
 
 ```sql
 USE SCHEMA bronze;
-INSERT INTO addresses VALUES(10, '75074',	'United States', '100 Sauthoff Trail',	'Texas');
+INSERT INTO addresses VALUES('10', '75074',	'United States', '100 Sauthoff Trail',	'Texas');
 SELECT * FROM addresses;
 ```
 
