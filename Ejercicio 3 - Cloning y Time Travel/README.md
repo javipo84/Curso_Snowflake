@@ -44,7 +44,7 @@ SELECT * FROM addresses;
 Ahora, borraremos el valor que le acabamos de insertar y mediante el uso de Time travel recuperaremos la versión inicial de la tabla con el registro insertado:
 
 ```sql
-DELETE FROM addresses WHERE addresses_id=10;
+DELETE FROM addresses WHERE address_id=10;
 SELECT * FROM addresses;
 ```
 Observamos cómo era la tabla hace 2 minutos:
