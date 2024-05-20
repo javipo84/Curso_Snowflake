@@ -12,9 +12,9 @@ En primer lugar y para asegurarnos que todos partimos de la misma base, vamos a 
 ```
 USE DATABASE MY_DB;
     
-CREATE OR REPLACE SCHEMA BRONZE CLONE CURSO_SNOWFLAKE_DE_2023.BRONZE;
-CREATE OR REPLACE SCHEMA SILVER CLONE CURSO_SNOWFLAKE_DE_2023.SILVER;
-CREATE OR REPLACE SCHEMA GOLD CLONE CURSO_SNOWFLAKE_DE_2023.GOLD;
+CREATE OR REPLACE SCHEMA BRONZE CLONE CURSO_DATA_ENGINEERING_2024.BRONZE;
+CREATE OR REPLACE SCHEMA SILVER CLONE CURSO_DATA_ENGINEERING_2024.SILVER;
+CREATE OR REPLACE SCHEMA GOLD CLONE CURSO_DATA_ENGINEERING_2024.GOLD;
 ```
 
 Ahora crearemos en nuestra Base de Datos y esquema GOLD la siguiente tabla que hace un agregado del número de pedidos y su status por fecha, para ello ejecutamos:
@@ -67,7 +67,7 @@ Hasta aquí los pasos previos, ahora vamos con lo nuevo!
 
 ### PASO 1: STREAM
 
-En primer lugar vamos a crear el stream (tipo APPEND_ONLY) sobre la tabla ORDERS_HIST, pero ojo!, lo vamos a crear sobre la tabla ORDERS_HIST que está en la base de datos común! (CURSO_SNOWFLAKE_DE_2023.BRONZE.ORDERS_HIST), no la que tienes en tu propia Base de Datos.
+En primer lugar vamos a crear el stream (tipo APPEND_ONLY) sobre la tabla ORDERS_HIST, pero ojo!, lo vamos a crear sobre la tabla ORDERS_HIST que está en la base de datos común! (CURSO_DATA_ENGINEERING_2024.BRONZE.ORDERS_HIST), no la que tienes en tu propia Base de Datos.
 
 Lo haremos así para simular la entrada de nuevos pedidos, es decir, una vez esté todo configurado insertaremos nosotros a modo de prueba registros y si todo está bien configurado, el pipeline que estais a punto de construir funcionará a la perfección!.
 
@@ -75,7 +75,7 @@ Recordad ejecutad siempre desde vuestra Base de Datos y crearemos el stream con 
 
 Será un Stream sobre la tabla:
 ```
-CURSO_SNOWFLAKE_DE_2023.BRONZE.ORDERS_HIST;
+CURSO_DATA_ENGINEERING_2024.BRONZE.ORDERS_HIST;
 ```
 
 Como siempre, la documentación es nuestra amiga:
