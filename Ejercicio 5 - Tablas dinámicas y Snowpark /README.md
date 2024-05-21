@@ -180,19 +180,7 @@ En esta etapa, debes crear 7 tablas dinámicas para procesar de manera automáti
 
 Coge las tablas que tenemos actualmente en Silver y modifícalas para que sean tablas dinámicas.
 
-Ejemplo de cómo sería una de las tabla dinámica:
-
-```sql
-CREATE OR REPLACE DYNAMIC TABLE DT_PROMOS (PROMO_ID, DISCOUNT, STATUS)
-    TARGET_LAG = '1 minutes'
-    WAREHOUSE = WH_BASICO
-    AS
-    SELECT 
-        PROMO_ID::varchar(50),
-        DISCOUNT::float,
-        STATUS::varchar(50)
-    FROM curso_snowflake_de_2024.bronze.promos; 
-```
+Os dejamos un atajo a la documentación https://docs.snowflake.com/en/user-guide/dynamic-tables-tasks-create
 
 ### b) Capa Gold
 
