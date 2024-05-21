@@ -206,3 +206,188 @@ Coge las tablas que tenemos actualmente en Gold y modifícalas para que sean tab
 
 1. Suma de Shipping_Cost agrupada por Código Postal: Deberás crear una tabla dinámica que realice este cálculo.
 2. Suma de Order_Cost por Nombre de Producto dónde el estado de la orden sea "shipped”: Igualmente, deberás crear una tabla dinámica para este cálculo.
+
+
+
+# Snowpark
+
+Snowpark proporciona una biblioteca intuitiva para consultar y procesar datos a escala en Snowflake. Mediante una biblioteca, puedes crear aplicaciones que procesen datos en Snowflake **sin mover los datos al sistema donde se ejecuta el código de su aplicación**.
+
+Snowflake proporciona actualmente bibliotecas Snowpark para tres lenguajes: **Java, Python y Scala**.
+
+En este caso, vamos a poner un ejemplo con Python, y ¿por qué con Python? Porque Snowflake nos permite utilizar un Worksheet con Python directamente, sin tener que instalar nada y desde la propia interfaz de Snowflake:
+
+![Untitled](https://prod-files-secure.s3.us-west-2.amazonaws.com/7e0dcde1-5a03-4ce7-a56f-1497c72c368f/91763f61-ef69-4456-8ae8-83101285b4d5/Untitled.png)
+
+**Partes de la práctica**
+
+---
+
+# **1. Configuración inicial**
+
+Vamos a hacer un clone de nuestra tabla de orders para poder modificarla sin problema:
+
+```sql
+CREATE OR REPLACE TABLE BASE_DE_DATOS_ALUMNO.BRONZE.ORDERS_COPY 
+  CLONE BASE_DE_DATOS_ALUMNO.BRONZE.ORDERS;
+```
+
+# **2. Creación y visualización de un dataframe**
+
+Primero, crearemos un dataframe simple desde una tabla existente en tu base de datos y veremos cómo mostrar los resultados.
+
+```sql
+import snowflake.snowpark as snowpark
+
+def main(session: snowpark.Session): 
+    # Seleccionamos la tabla desde tu esquema y base de datos
+    df = session.table("BASE_DE_DATOS_ALUMNO.BRONZE.ORDERS_COPY")
+    return df
+```
+
+Para mostrar los resultados, podemos verlos también desde la terminal. Esto se hará seleccionando que la salida sea un String y usando la función print de python:
+
+![Untitled](https://prod-files-secure.s3.us-west-2.amazonaws.com/7e0dcde1-5a03-4ce7-a56f-1497c72c368f/b2cecd15-e6bf-4fdc-bfe6-4ff806d11c9a/Untitled.png)
+
+```sql
+import snowflake.snowpark as snowpark
+
+def main(session: snowpark.Session):
+    session.use_database('BASE_DE_DATOS_ALUMNO')
+    session.use_schema('BRONZE')
+
+    # Creamos un dataframe
+    df = session.table("ORDERS_COPY")
+    print("df.show(10) resultado")
+    print(df.show(10))
+    print('')
+    print('___________________________')
+    print('___________________________')
+    print("df.count() resultado")
+    print(df.count())
+    return df
+```
+
+Para que nos vuelva a salir como tabla en la pestaña de “Results” tenemos que volver a selecciona en Settings>Return type>`Table()` :
+
+![Untitled](https://prod-files-secure.s3.us-west-2.amazonaws.com/7e0dcde1-5a03-4ce7-a56f-1497c72c368f/9b8c8615-8262-4e3d-86db-2a16d3126723/Untitled.png)
+
+# 3. Transformación de los datos
+
+Con Python podemos escoger las columnas que queremos consultar dentro del dataframe creado:
+
+```sql
+import snowflake.snowpark as snowpark
+
+def main(session: snowpark.Session):
+    session.use_database('BASE_DE_DATOS_ALUMNO')
+    session.use_schema('BRONZE')
+
+    df = session.table("ORDERS_COPY")
+    # Seleccionamos algunas columnas de interés
+    df = df.select("ORDER_ID", "CUSTOMER_ID", "ORDER_STATUS", "ORDER_DATE").limit(10)
+    return df
+```
+
+## a) Filtrado de filas
+
+Podemos filtrar por filas:
+
+```sql
+import snowflake.snowpark as snowpark
+import snowflake.snowpark.functions as f
+
+def main(session: snowpark.Session):
+    session.use_database('BASE_DE_DATOS_ALUMNO')
+    session.use_schema('BRONZE')
+
+    df = session.table("ORDERS_COPY")
+    # Filtramos las órdenes con estado 4
+    df = df.filter(f.col("ORDER_STATUS") == 4).limit(10)
+    return df
+
+```
+
+## **b) Inserción de nuevas columnas**
+
+También podemos agregar una columna que indique el número de días que tardó el envío desde la fecha de pedido hasta la fecha de envío.
+
+```sql
+import snowflake.snowpark as snowpark
+import snowflake.snowpark.functions as f
+
+def main(session: snowpark.Session):
+    session.use_database('BASE_DE_DATOS_ALUMNO')
+    session.use_schema('BRONZE')
+
+    df = session.table("ORDERS_COPY")
+    # Calculamos los días entre el pedido y el envío
+    df = df.with_column("SHIPPING_DELAY", f.datediff("SHIPPED_DATE", "ORDER_DATE"))
+    return df
+
+```
+
+## c) Agregación de datos
+
+Nuestros datos también pueden ser agrupados como si estuviésemos haciendo un `GROUP BY` en SQL pero en este caso con Python:
+
+```sql
+import snowflake.snowpark as snowpark
+import snowflake.snowpark.functions as f
+
+def main(session: snowpark.Session):
+    session.use_database('BASE_DE_DATOS_ALUMNO')
+    session.use_schema('BRONZE')
+
+    df = session.table("ORDERS_COPY")
+    # Agrupamos por STORE_ID y realizamos varias agregaciones en ORDER_TOTAL
+    grouped_data = df.groupBy("STORE_ID").agg(
+        f.sum("ORDER_TOTAL").as_("TOTAL_SALES"),
+        f.avg("ORDER_TOTAL").as_("AVERAGE_SALES"),
+        f.min("ORDER_TOTAL").as_("MIN_SALES"),
+        f.max("ORDER_TOTAL").as_("MAX_SALES"),
+        f.count("*").as_("COUNT_ORDERS")
+    )
+
+    return grouped_data
+```
+
+## d) **Uniones entre tablas**
+
+Supongamos que queremos unir la tabla **`orders`** con **`customers`** donde queremos mantener todos los registros de **`orders`** y solo los datos coincidentes de **`customers`**.
+
+```sql
+import snowflake.snowpark as snowpark
+
+def main(session: snowpark.Session):
+    session.use_database('BASE_DE_DATOS_ALUMNO')
+    session.use_schema('BRONZE')
+
+    df_orders = session.table("ORDERS_COPY")
+    df_customers = session.table("customers")
+    # Realizamos un left join
+    left_join_data = df_orders.join(df_customers, df_orders["CUSTOMER_ID"] == df_customers["CUSTOMER_ID"], "left")
+    
+    return left_join_data
+```
+
+## **e) Ejercicio: creación de una columna de correo electrónico para el cliente**
+
+Generemos una dirección de correo electrónico ficticia para el cliente utilizando su **`CUSTOMER_ID`**.
+
+<details>
+<summary>Solución:</summary>
+<br>
+import snowflake.snowpark as snowpark
+import snowflake.snowpark.functions as f
+from snowflake.snowpark.types import StringType
+
+def main(session: snowpark.Session):
+    session.use_database('BASE_DE_DATOS_ALUMNO')
+    session.use_schema('BRONZE')
+
+    df = session.table("ORDERS_COPY")
+    # Creamos una dirección de email ficticia para el cliente
+    df = df.with_column('CUSTOMER_EMAIL', f.concat(f.cast(f.col("CUSTOMER_ID"), StringType()), f.lit('@example.com')))
+    return df
+</details>
