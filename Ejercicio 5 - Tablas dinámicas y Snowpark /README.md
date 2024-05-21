@@ -217,11 +217,8 @@ Snowflake proporciona actualmente bibliotecas Snowpark para tres lenguajes: 
 
 En este caso, vamos a poner un ejemplo con Python, y ¿por qué con Python? Porque Snowflake nos permite utilizar un Worksheet con Python directamente, sin tener que instalar nada y desde la propia interfaz de Snowflake:
 
-![Untitled](https://prod-files-secure.s3.us-west-2.amazonaws.com/7e0dcde1-5a03-4ce7-a56f-1497c72c368f/91763f61-ef69-4456-8ae8-83101285b4d5/Untitled.png)
+![Untitled (4)](https://github.com/javipo84/Curso_Snowflake/assets/166698078/d1ffc4b4-a805-422a-a23c-584492db42e1)
 
-**Partes de la práctica**
-
----
 
 # **1. Configuración inicial**
 
@@ -247,7 +244,8 @@ def main(session: snowpark.Session):
 
 Para mostrar los resultados, podemos verlos también desde la terminal. Esto se hará seleccionando que la salida sea un String y usando la función print de python:
 
-![Untitled](https://prod-files-secure.s3.us-west-2.amazonaws.com/7e0dcde1-5a03-4ce7-a56f-1497c72c368f/b2cecd15-e6bf-4fdc-bfe6-4ff806d11c9a/Untitled.png)
+![Untitled (3)](https://github.com/javipo84/Curso_Snowflake/assets/166698078/8d92bd53-3489-4117-99b9-c8cbff135b11)
+
 
 ```sql
 import snowflake.snowpark as snowpark
@@ -270,7 +268,8 @@ def main(session: snowpark.Session):
 
 Para que nos vuelva a salir como tabla en la pestaña de “Results” tenemos que volver a selecciona en Settings>Return type>`Table()` :
 
-![Untitled](https://prod-files-secure.s3.us-west-2.amazonaws.com/7e0dcde1-5a03-4ce7-a56f-1497c72c368f/9b8c8615-8262-4e3d-86db-2a16d3126723/Untitled.png)
+![Untitled (2)](https://github.com/javipo84/Curso_Snowflake/assets/166698078/18976eb7-97df-45cb-98a1-c75cbd3e5144)
+
 
 # 3. Transformación de los datos
 
@@ -378,6 +377,7 @@ Generemos una dirección de correo electrónico ficticia para el cliente utiliza
 <details>
 <summary>Solución:</summary>
 <br>
+```sql
 import snowflake.snowpark as snowpark
 import snowflake.snowpark.functions as f
 from snowflake.snowpark.types import StringType
@@ -390,4 +390,5 @@ def main(session: snowpark.Session):
     # Creamos una dirección de email ficticia para el cliente
     df = df.with_column('CUSTOMER_EMAIL', f.concat(f.cast(f.col("CUSTOMER_ID"), StringType()), f.lit('@example.com')))
     return df
+```
 </details>
