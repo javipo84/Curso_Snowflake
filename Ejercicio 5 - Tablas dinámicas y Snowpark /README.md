@@ -146,7 +146,7 @@ BEGIN
 END;
 ```
 
-1. **Procedimiento para Análisis del Estado en Gold:** realiza un análisis por estado sobre los datos de órdenes y direcciones de la capa Silver, utilizando una agrupación por estado, una suma del costo de pedidos por estado y un conteo de pedidos y usuarios únicos por estado.
+2. **Procedimiento para Análisis del Estado en Gold:** realiza un análisis por estado sobre los datos de órdenes y direcciones de la capa Silver, utilizando una agrupación por estado, una suma del costo de pedidos por estado y un conteo de pedidos y usuarios únicos por estado.
 
 ```sql
 CREATE OR REPLACE PROCEDURE MYDB.GOLD.INSERT_GOLD_STATE_ANALYSIS()
