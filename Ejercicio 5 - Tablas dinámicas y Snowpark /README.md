@@ -209,8 +209,6 @@ Coge las tablas que tenemos actualmente en Gold y modifícalas para que sean tab
 
 </br>
 </br>
-</br>
-</br>
 
 # Snowpark
 
