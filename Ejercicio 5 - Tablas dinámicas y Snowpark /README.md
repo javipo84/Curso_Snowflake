@@ -207,7 +207,10 @@ Coge las tablas que tenemos actualmente en Gold y modifícalas para que sean tab
 1. Suma de Shipping_Cost agrupada por Código Postal: Deberás crear una tabla dinámica que realice este cálculo.
 2. Suma de Order_Cost por Nombre de Producto dónde el estado de la orden sea "shipped”: Igualmente, deberás crear una tabla dinámica para este cálculo.
 
-
+</br>
+</br>
+</br>
+</br>
 
 # Snowpark
 
