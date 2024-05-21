@@ -51,7 +51,7 @@ SELECT
     FROM curso_data_engineering_2024.bronze.orders_hist
 ```
 
-Si nos fijamos, en esta última SELECT no estamos teniendo en cuenta el MERGE que hicimos ayer... Sería bueno tener en cuenta eso y quedarnos solo con los ORDER_ID más recientes.
+**Si nos fijamos, en esta última SELECT no estamos teniendo en cuenta el MERGE que hicimos ayer... Sería bueno tener en cuenta eso y quedarnos solo con los ORDER_ID más recientes.**
 
 Os dejamos un atajo a la documentación https://docs.snowflake.com/en/user-guide/dynamic-tables-tasks-create
 
