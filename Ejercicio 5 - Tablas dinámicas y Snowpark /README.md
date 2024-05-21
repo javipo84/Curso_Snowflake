@@ -363,12 +363,12 @@ def main(session: snowpark.Session):
 
 Generemos una dirección de correo electrónico ficticia para el cliente utilizando su **`CUSTOMER_ID`**.
 
-<details>
-<summary>Solución:</summary>
-<br>
-```sql import snowflake.snowpark as snowpark
-        import snowflake.snowpark.functions as f
-        from snowflake.snowpark.types import StringType
+- Solución:
+
+```sql 
+import snowflake.snowpark as snowpark
+import snowflake.snowpark.functions as f
+from snowflake.snowpark.types import StringType
 
     def main(session: snowpark.Session):
         session.use_database('BASE_DE_DATOS_ALUMNO')
@@ -377,5 +377,5 @@ Generemos una dirección de correo electrónico ficticia para el cliente utiliza
     df = session.table("ORDERS_COPY")
     # Creamos una dirección de email ficticia para el cliente
     df = df.with_column('CUSTOMER_EMAIL', f.concat(f.cast(f.col("CUSTOMER_ID"), StringType()), f.lit('@example.com')))
-    return df ```
-</details>
+    return df 
+```
