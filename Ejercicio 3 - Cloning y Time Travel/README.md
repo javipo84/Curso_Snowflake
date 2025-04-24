@@ -13,9 +13,15 @@ En esta práctica seguiremos utilizando los datos que ingestamos en el apartado 
 
 Por ejemplo, si queremos clonar la tabla *addresses*  del esquema *bronze* en una tabla con nombre, pongamos, *addresses_clonado* y ejecutamos el comando que corresponda (os dejamos por aquí un atajo a la docu de Snowflake https://docs.snowflake.com/en/sql-reference/sql/create-clone)
 
-Al hacer el clonado podemos observar que ambas tablas son idénticas:
+![image](https://github.com/user-attachments/assets/0d4ec32c-9ce3-48c2-b48b-0c905f993b08)
 
-![image](https://github.com/javipo84/Curso_Snowflake/assets/166698078/f0ba487f-ab9d-496a-8ac6-dd69f3093dfe)
+Al hacer el clonado podemos observar que ambas tablas son idénticas.
+
+```sql
+    SELECT * FROM addresses
+    MINUS
+    SELECT * FROM addresses_clonado
+```
 
 ## b) Clonado de esquema
 
